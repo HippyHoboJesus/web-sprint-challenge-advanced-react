@@ -128,15 +128,20 @@ export default class AppClass extends React.Component {
 
   onSubmit = (evt) => {
     // Use a POST request to send a payload to the server.
-    evt.preventDefault();
+    evt.preventDefault()
 
     const xy = this.getXY()
 
     axios.post(URL, { "x": xy.x, "y": xy.y, "steps": this.state.steps, "email": this.state.email })
     .then(res => {
-      console.log(res)
+      this.setState({
+        ...this.state,
+        message: res.data.message,
+        email: initialEmail
+      })
     })
     .catch(err => console.error(err))
+    
   }
 
   render() {
@@ -146,7 +151,7 @@ export default class AppClass extends React.Component {
       <div id="wrapper" className={className}>
         <div className="info">
           <h3 id="coordinates">{this.getXYMessage(xy.x, xy.y)}</h3>
-          <h3 id="steps">You moved {this.state.steps} times</h3>
+          <h3 id="steps">You moved {this.state.steps} time{this.state.steps === 1? '' : 's'}</h3>
         </div>
         <div id="grid">
           {
@@ -167,9 +172,9 @@ export default class AppClass extends React.Component {
           <button id="down" onClick={this.move}>DOWN</button>
           <button id="reset" onClick={this.reset}>reset</button>
         </div>
-        <form>
-          <input id="email" type="email" placeholder="type email" onChange={this.onChange}></input>
-          <input id="submit" type="submit" onSubmit={this.onSubmit}></input>
+        <form onSubmit={this.onSubmit}>
+          <input id="email" type="email" placeholder="type email" value={this.state.email} onChange={this.onChange}></input>
+          <input id="submit" type="submit" ></input>
         </form>
       </div>
     )

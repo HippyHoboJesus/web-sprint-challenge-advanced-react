@@ -92,11 +92,12 @@ export default function AppFunctional(props) {
     // Use a POST request to send a payload to the server.
     evt.preventDefault()
 
-    const xy = this.getXY()
+    const xy = getXY()
 
     axios.post(URL, { "x": xy.x, "y": xy.y, "steps": steps, "email": email })
     .then(res => {
-      console.log(res)
+      setMessage(res.data.message)
+      setEmail(initialEmail)
     })
     .catch(err => console.error(err))
   }
@@ -105,7 +106,7 @@ export default function AppFunctional(props) {
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates">{getXYMessage()}</h3>
-        <h3 id="steps">You moved {steps} times</h3>
+        <h3 id="steps">You moved {steps} time{steps === 1? '' : 's'}</h3>
       </div>
       <div id="grid">
         {
@@ -126,9 +127,9 @@ export default function AppFunctional(props) {
         <button id="down" onClick={move}>DOWN</button>
         <button id="reset" onClick={reset}>reset</button>
       </div>
-      <form>
-        <input id="email" type="email" placeholder="type email" onChange={onChange}></input>
-        <input id="submit" type="submit" onSubmit={onSubmit}></input>
+      <form onSubmit={onSubmit}>
+        <input id="email" type="email" placeholder="type email" value={email} onChange={onChange}></input>
+        <input id="submit" type="submit"></input>
       </form>
     </div>
   )
