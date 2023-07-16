@@ -140,7 +140,12 @@ export default class AppClass extends React.Component {
         email: initialEmail
       })
     })
-    .catch(err => console.error(err))
+    .catch(err => {
+      this.setState({
+        ...this.state,
+        message: err.response.data.message
+      })
+    })
     
   }
 

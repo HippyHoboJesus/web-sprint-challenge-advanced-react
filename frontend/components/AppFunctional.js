@@ -99,7 +99,7 @@ export default function AppFunctional(props) {
       setMessage(res.data.message)
       setEmail(initialEmail)
     })
-    .catch(err => console.error(err))
+    .catch(err => setMessage(err.response.data.message))
   }
 
   return (
