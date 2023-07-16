@@ -46,7 +46,7 @@ test('renders submit', () => {
 
   render(<AppClass/>);
 
-  const submitButton = screen.queryByText(/Submit/)
+  const submitButton = screen.queryByLabelText(/Submit/i)
 
   expect(submitButton).toBeInTheDocument();
 });
