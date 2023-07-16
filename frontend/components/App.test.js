@@ -2,6 +2,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import userEvent from '@testing-library/user-event';
 import AppClass from './AppClass';
 
 test('sanity', () => {
@@ -42,11 +43,13 @@ test('renders reset', () => {
   expect(resetButton).toBeInTheDocument();
 });
 
-test('renders submit', () => {
+test('can type in input feild', () => {
 
   render(<AppClass/>);
 
-  const submitButton = screen.queryByLabelText(/Submit/i)
+  const emailField = screen.queryByPlaceholderText(/type email/i);
+    userEvent.type(emailField, 'jasemgreer@gmail.com');
 
-  expect(submitButton).toBeInTheDocument();
+  const email = screen.queryByText(/jasemgreer@gmail.com/)
+  expect(email).toBeInTheDocument();
 });
