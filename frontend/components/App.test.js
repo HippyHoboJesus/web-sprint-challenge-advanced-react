@@ -1,13 +1,11 @@
 // Write your tests here
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import userEvent from '@testing-library/user-event';
-import ContactForm from './ContactForm';
 import AppClass from './AppClass';
 
 test('sanity', () => {
-  expect(true).toBe(false)
+  expect(true).toBe(true)
 })
 
 test('renders without errors', () => {
@@ -23,4 +21,32 @@ test('renders coordinates', () => {
   const coordinatesHeader = screen.queryByText(/Coordinates/)
 
   expect(coordinatesHeader).toBeInTheDocument();
+});
+
+
+test('renders up', () => {
+
+  render(<AppClass/>);
+
+  const upButton = screen.queryByText(/UP/)
+
+  expect(upButton).toBeInTheDocument();
+});
+
+test('renders reset', () => {
+
+  render(<AppClass/>);
+
+  const resetButton = screen.queryByText(/reset/)
+
+  expect(resetButton).toBeInTheDocument();
+});
+
+test('renders submit', () => {
+
+  render(<AppClass/>);
+
+  const submitButton = screen.queryByText(/Submit/)
+
+  expect(submitButton).toBeInTheDocument();
 });
